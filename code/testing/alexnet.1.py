@@ -27,7 +27,7 @@ from keras import regularizers
 from keras.callbacks import LearningRateScheduler
 import numpy as np
 '''
-
+'''
 def lr_schedule(epoch):
     lrate = 0.001
     if epoch > 75:
@@ -35,67 +35,80 @@ def lr_schedule(epoch):
     if epoch > 100:
         lrate = 0.0003
     return lrate
+'''
 weight_decay = 1e-4
 #Instantiate an empty model
 model = Sequential()
 
 # 1st Convolutional Layer
-#model.add(Conv2D(filters=32, input_shape=(32,32,3), kernel_size=(3,3), padding='same'))
 model.add(Conv2D(filters=32, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay), input_shape=(32,32,3)))
+#model.add(Conv2D(filters=32, kernel_size=(3,3), padding='same', input_shape=(32,32,3)))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
 
 # Max Pooling
 model.add(MaxPooling2D(pool_size=(2,2), padding='same'))
+#model.add(Dropout(0.5))
 
 # 2nd Convolutional Layer
 model.add(Conv2D(filters=32, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
+#model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same'))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
 
 # Max Pooling
 model.add(MaxPooling2D(pool_size=(2,2), padding='same'))
+#model.add(Dropout(0.5))
 
 # 3rd Convolutional Layer
 model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
+#model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same'))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
 
 # 4th Convolutional Layer
 model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
+#model.add(Conv2D(filters=128, kernel_size=(3,3), padding='same'))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
 
 # 5th Convolutional Layer
 model.add(Conv2D(filters=128, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
+#model.add(Conv2D(filters=128, kernel_size=(3,3), padding='same'))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
 
 # Max Pooling
 model.add(MaxPooling2D(pool_size=(2,2), padding='same'))
+#model.add(Dropout(0.5))
 
 # Passing it to a Fully Connected layer
 model.add(Flatten())
 # 1st Fully Connected Layer
-model.add(Dense(1024, input_shape=(32*32*3,), kernel_regularizer=regularizers.l2(weight_decay)))
+model.add(Dense(512, input_shape=(32*32*3,), kernel_regularizer=regularizers.l2(weight_decay)))
+#model.add(Dense(512, input_shape=(32*32*3,)))
 model.add(Activation('relu'))
-#model.add(BatchNormalization())
+model.add(BatchNormalization())
 
 # Add Dropout to prevent overfitting
-model.add(Dropout(0.5))
+#model.add(Dropout(0.5))
 
 # 2nd Fully Connected Layer
-model.add(Dense(1024, kernel_regularizer=regularizers.l2(weight_decay)))
+model.add(Dense(512, kernel_regularizer=regularizers.l2(weight_decay)))
+#model.add(Dense(512))
 model.add(Activation('relu'))
-#model.add(BatchNormalization())
+model.add(BatchNormalization())
 
 # Add Dropout
-model.add(Dropout(0.5))
+#model.add(Dropout(0.5))
 
 # 3rd Fully Connected Layer
 model.add(Dense(250, kernel_regularizer=regularizers.l2(weight_decay)))
+#model.add(Dense(250))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
+
+#model.add(Dropout(0.5))
 
 # Output Layer
 model.add(Dense(10))
@@ -132,10 +145,9 @@ datagen.fit(x_train)
 
 
 
-#plotdata = model.fit(x_train, y_train, batch_size=100, shuffle=True, validation_data =(x_test, y_test), epochs=20)
+#plotdata = model.fit(x_train, y_train, batch_size=100, shuffle=True, validation_data =(x_test, y_test), epochs=50)
 
-#plotdata = model.fit_generator(datagen.flow(x_train, y_train, shuffle=True, batch_size=64), steps_per_epoch=len(x_train) / 64, epochs=40, validation_data =(x_test, y_test),verbose=1,callbacks=[LearningRateScheduler(lr_schedule)])
-plotdata = model.fit_generator(datagen.flow(x_train, y_train, shuffle=True, batch_size=64), steps_per_epoch=len(x_train) / 64, epochs=40, validation_data =(x_test, y_test))
+plotdata = model.fit_generator(datagen.flow(x_train, y_train, shuffle=True, batch_size=100), steps_per_epoch=len(x_train)/100, epochs=50, validation_data =(x_test, y_test))
 
 #model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size),\
 #                    steps_per_epoch=x_train.shape[0] // batch_size,epochs=125,\
