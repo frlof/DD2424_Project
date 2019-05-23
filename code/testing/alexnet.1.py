@@ -15,6 +15,8 @@ from keras.preprocessing.image import ImageDataGenerator
 
 from keras import regularizers
 from keras.callbacks import LearningRateScheduler
+
+from keras import optimizers
 '''
 import keras
 from keras.models import Sequential
@@ -41,52 +43,55 @@ weight_decay = 1e-4
 model = Sequential()
 
 # 1st Convolutional Layer
-model.add(Conv2D(filters=32, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay), input_shape=(32,32,3)))
-#model.add(Conv2D(filters=32, kernel_size=(3,3), padding='same', input_shape=(32,32,3)))
+#model.add(Conv2D(filters=32, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay), input_shape=(32,32,3)))
+model.add(Conv2D(filters=32, kernel_size=(3,3), padding='same', input_shape=(32,32,3)))
 model.add(Activation('relu'))
-model.add(BatchNormalization())
+#model.add(BatchNormalization())
 
 # Max Pooling
 model.add(MaxPooling2D(pool_size=(2,2), padding='same'))
+model.add(BatchNormalization())
 #model.add(Dropout(0.5))
 
 # 2nd Convolutional Layer
-model.add(Conv2D(filters=32, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
-#model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same'))
+#model.add(Conv2D(filters=32, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
+model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same'))
 model.add(Activation('relu'))
-model.add(BatchNormalization())
+#model.add(BatchNormalization())
 
 # Max Pooling
 model.add(MaxPooling2D(pool_size=(2,2), padding='same'))
+model.add(BatchNormalization())
 #model.add(Dropout(0.5))
 
 # 3rd Convolutional Layer
-model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
-#model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same'))
+#model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
+model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same'))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
 
 # 4th Convolutional Layer
-model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
-#model.add(Conv2D(filters=128, kernel_size=(3,3), padding='same'))
+#model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
+model.add(Conv2D(filters=128, kernel_size=(3,3), padding='same'))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
 
 # 5th Convolutional Layer
-model.add(Conv2D(filters=128, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
-#model.add(Conv2D(filters=128, kernel_size=(3,3), padding='same'))
+#model.add(Conv2D(filters=128, kernel_size=(3,3), padding='same', kernel_regularizer=regularizers.l2(weight_decay)))
+model.add(Conv2D(filters=128, kernel_size=(3,3), padding='same'))
 model.add(Activation('relu'))
-model.add(BatchNormalization())
+#model.add(BatchNormalization())
 
 # Max Pooling
 model.add(MaxPooling2D(pool_size=(2,2), padding='same'))
+model.add(BatchNormalization())
 #model.add(Dropout(0.5))
 
 # Passing it to a Fully Connected layer
 model.add(Flatten())
 # 1st Fully Connected Layer
-model.add(Dense(512, input_shape=(32*32*3,), kernel_regularizer=regularizers.l2(weight_decay)))
-#model.add(Dense(512, input_shape=(32*32*3,)))
+#model.add(Dense(512, input_shape=(32*32*3,), kernel_regularizer=regularizers.l2(weight_decay)))
+model.add(Dense(512, input_shape=(32*32*3,)))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
 
@@ -94,8 +99,8 @@ model.add(BatchNormalization())
 #model.add(Dropout(0.5))
 
 # 2nd Fully Connected Layer
-model.add(Dense(512, kernel_regularizer=regularizers.l2(weight_decay)))
-#model.add(Dense(512))
+#model.add(Dense(512, kernel_regularizer=regularizers.l2(weight_decay)))
+model.add(Dense(512))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
 
@@ -103,8 +108,8 @@ model.add(BatchNormalization())
 #model.add(Dropout(0.5))
 
 # 3rd Fully Connected Layer
-model.add(Dense(250, kernel_regularizer=regularizers.l2(weight_decay)))
-#model.add(Dense(250))
+#model.add(Dense(250, kernel_regularizer=regularizers.l2(weight_decay)))
+model.add(Dense(250))
 model.add(Activation('relu'))
 model.add(BatchNormalization())
 
@@ -117,7 +122,13 @@ model.add(Activation('softmax'))
 model.summary()
 
 # Compile the model
-model.compile(loss=keras.losses.categorical_crossentropy, optimizer='adam', metrics=["accuracy"]) 
+#sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+#model.compile(loss=keras.losses.categorical_crossentropy, optimizer=sgd, metrics=["accuracy"]) 
+
+opt_rms = keras.optimizers.rmsprop(lr=0.001,decay=1e-6)
+model.compile(loss=keras.losses.categorical_crossentropy, optimizer=opt_rms, metrics=["accuracy"]) 
+
+#model.compile(loss=keras.losses.categorical_crossentropy, optimizer='adam', metrics=["accuracy"]) 
 
 
 cifar10 =keras.datasets.cifar10
@@ -145,9 +156,9 @@ datagen.fit(x_train)
 
 
 
-#plotdata = model.fit(x_train, y_train, batch_size=100, shuffle=True, validation_data =(x_test, y_test), epochs=50)
+plotdata = model.fit(x_train, y_train, batch_size=100, shuffle=True, validation_data =(x_test, y_test), epochs=50)
 
-plotdata = model.fit_generator(datagen.flow(x_train, y_train, shuffle=True, batch_size=100), steps_per_epoch=len(x_train)/100, epochs=50, validation_data =(x_test, y_test))
+#plotdata = model.fit_generator(datagen.flow(x_train, y_train, shuffle=True, batch_size=100), steps_per_epoch=len(x_train)/100, epochs=50, validation_data =(x_test, y_test))
 
 #model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size),\
 #                    steps_per_epoch=x_train.shape[0] // batch_size,epochs=125,\

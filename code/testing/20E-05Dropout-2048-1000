@@ -1,0 +1,126 @@
+[pirrio@PirrioMachine testing]$ python alexnet.1.py 
+Using TensorFlow backend.
+WARNING:tensorflow:From /usr/lib/python3.7/site-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+WARNING:tensorflow:From /usr/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py:3445: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d_1 (Conv2D)            (None, 32, 32, 32)        896       
+_________________________________________________________________
+activation_1 (Activation)    (None, 32, 32, 32)        0         
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 16, 16, 32)        0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 16, 16, 32)        9248      
+_________________________________________________________________
+activation_2 (Activation)    (None, 16, 16, 32)        0         
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 8, 8, 32)          0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 8, 8, 64)          18496     
+_________________________________________________________________
+activation_3 (Activation)    (None, 8, 8, 64)          0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 8, 8, 64)          36928     
+_________________________________________________________________
+activation_4 (Activation)    (None, 8, 8, 64)          0         
+_________________________________________________________________
+conv2d_5 (Conv2D)            (None, 8, 8, 128)         73856     
+_________________________________________________________________
+activation_5 (Activation)    (None, 8, 8, 128)         0         
+_________________________________________________________________
+max_pooling2d_3 (MaxPooling2 (None, 4, 4, 128)         0         
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 2048)              0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 2048)              4196352   
+_________________________________________________________________
+activation_6 (Activation)    (None, 2048)              0         
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 2048)              0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 2048)              4196352   
+_________________________________________________________________
+activation_7 (Activation)    (None, 2048)              0         
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 2048)              0         
+_________________________________________________________________
+dense_3 (Dense)              (None, 1000)              2049000   
+_________________________________________________________________
+activation_8 (Activation)    (None, 1000)              0         
+_________________________________________________________________
+dense_4 (Dense)              (None, 10)                10010     
+_________________________________________________________________
+activation_9 (Activation)    (None, 10)                0         
+=================================================================
+Total params: 10,591,138
+Trainable params: 10,591,138
+Non-trainable params: 0
+_________________________________________________________________
+WARNING:tensorflow:From /usr/lib/python3.7/site-packages/tensorflow/python/ops/math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+Train on 50000 samples, validate on 10000 samples
+Epoch 1/20
+2019-05-19 15:51:06.050156: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX
+2019-05-19 15:51:06.068533: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3401830000 Hz
+2019-05-19 15:51:06.068817: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x5638138bc900 executing computations on platform Host. Devices:
+2019-05-19 15:51:06.068837: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-05-19 15:51:06.114786: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:998] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-05-19 15:51:06.115111: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x5638138e3e00 executing computations on platform CUDA. Devices:
+2019-05-19 15:51:06.115127: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): GeForce GTX 780, Compute Capability 3.5
+2019-05-19 15:51:06.115226: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: GeForce GTX 780 major: 3 minor: 5 memoryClockRate(GHz): 0.954
+pciBusID: 0000:01:00.0
+totalMemory: 2.95GiB freeMemory: 1.93GiB
+2019-05-19 15:51:06.115241: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-05-19 15:51:06.339615: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-05-19 15:51:06.339647: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-05-19 15:51:06.339654: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-05-19 15:51:06.339753: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 1705 MB memory) -> physical GPU (device: 0, name: GeForce GTX 780, pci bus id: 0000:01:00.0, compute capability: 3.5)
+2019-05-19 15:51:07.055666: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10 locally
+50000/50000 [==============================] - 17s 341us/step - loss: 1.8338 - acc: 0.3078 - val_loss: 1.5554 - val_acc: 0.4304
+Epoch 2/20
+50000/50000 [==============================] - 15s 299us/step - loss: 1.4035 - acc: 0.4912 - val_loss: 1.2520 - val_acc: 0.5533
+Epoch 3/20
+50000/50000 [==============================] - 15s 297us/step - loss: 1.1786 - acc: 0.5785 - val_loss: 1.0966 - val_acc: 0.6084
+Epoch 4/20
+50000/50000 [==============================] - 15s 299us/step - loss: 1.0389 - acc: 0.6359 - val_loss: 0.9833 - val_acc: 0.6571
+Epoch 5/20
+50000/50000 [==============================] - 15s 306us/step - loss: 0.9388 - acc: 0.6711 - val_loss: 0.9326 - val_acc: 0.6757
+Epoch 6/20
+50000/50000 [==============================] - 15s 304us/step - loss: 0.8575 - acc: 0.7003 - val_loss: 0.9633 - val_acc: 0.6665
+Epoch 7/20
+50000/50000 [==============================] - 15s 294us/step - loss: 0.8039 - acc: 0.7204 - val_loss: 0.8934 - val_acc: 0.6953
+Epoch 8/20
+50000/50000 [==============================] - 15s 297us/step - loss: 0.7362 - acc: 0.7441 - val_loss: 0.8758 - val_acc: 0.7020
+Epoch 9/20
+50000/50000 [==============================] - 15s 296us/step - loss: 0.6868 - acc: 0.7613 - val_loss: 0.8495 - val_acc: 0.7114
+Epoch 10/20
+50000/50000 [==============================] - 15s 294us/step - loss: 0.6299 - acc: 0.7792 - val_loss: 0.8463 - val_acc: 0.7213
+Epoch 11/20
+50000/50000 [==============================] - 15s 295us/step - loss: 0.5987 - acc: 0.7918 - val_loss: 0.8543 - val_acc: 0.7225
+Epoch 12/20
+50000/50000 [==============================] - 15s 296us/step - loss: 0.5513 - acc: 0.8064 - val_loss: 0.8283 - val_acc: 0.7314
+Epoch 13/20
+50000/50000 [==============================] - 15s 295us/step - loss: 0.5061 - acc: 0.8220 - val_loss: 0.8568 - val_acc: 0.7311
+Epoch 14/20
+50000/50000 [==============================] - 15s 301us/step - loss: 0.4905 - acc: 0.8294 - val_loss: 0.8682 - val_acc: 0.7244
+Epoch 15/20
+50000/50000 [==============================] - 15s 301us/step - loss: 0.4475 - acc: 0.8434 - val_loss: 0.9161 - val_acc: 0.7237
+Epoch 16/20
+50000/50000 [==============================] - 16s 311us/step - loss: 0.4243 - acc: 0.8522 - val_loss: 0.9020 - val_acc: 0.7252
+Epoch 17/20
+50000/50000 [==============================] - 16s 314us/step - loss: 0.4012 - acc: 0.8613 - val_loss: 0.9277 - val_acc: 0.7279
+Epoch 18/20
+50000/50000 [==============================] - 15s 306us/step - loss: 0.3780 - acc: 0.8698 - val_loss: 0.9611 - val_acc: 0.7176
+Epoch 19/20
+50000/50000 [==============================] - 15s 303us/step - loss: 0.3526 - acc: 0.8767 - val_loss: 0.9424 - val_acc: 0.7330
+Epoch 20/20
+50000/50000 [==============================] - 15s 295us/step - loss: 0.3249 - acc: 0.8871 - val_loss: 0.9874 - val_acc: 0.7270
+10000/10000 [==============================] - 1s 119us/step
+0.9873506393432617 0.727

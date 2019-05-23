@@ -1,0 +1,119 @@
+[pirrio@PirrioMachine testing]$ python alexnet.1.py 
+Using TensorFlow backend.
+WARNING:tensorflow:From /usr/lib/python3.7/site-packages/tensorflow/python/framework/op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d_1 (Conv2D)            (None, 32, 32, 32)        896       
+_________________________________________________________________
+activation_1 (Activation)    (None, 32, 32, 32)        0         
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 16, 16, 32)        0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 16, 16, 32)        9248      
+_________________________________________________________________
+activation_2 (Activation)    (None, 16, 16, 32)        0         
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 8, 8, 32)          0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 8, 8, 64)          18496     
+_________________________________________________________________
+activation_3 (Activation)    (None, 8, 8, 64)          0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 8, 8, 64)          36928     
+_________________________________________________________________
+activation_4 (Activation)    (None, 8, 8, 64)          0         
+_________________________________________________________________
+conv2d_5 (Conv2D)            (None, 8, 8, 128)         73856     
+_________________________________________________________________
+activation_5 (Activation)    (None, 8, 8, 128)         0         
+_________________________________________________________________
+max_pooling2d_3 (MaxPooling2 (None, 4, 4, 128)         0         
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 2048)              0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 2048)              4196352   
+_________________________________________________________________
+activation_6 (Activation)    (None, 2048)              0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 2048)              4196352   
+_________________________________________________________________
+activation_7 (Activation)    (None, 2048)              0         
+_________________________________________________________________
+dense_3 (Dense)              (None, 1000)              2049000   
+_________________________________________________________________
+activation_8 (Activation)    (None, 1000)              0         
+_________________________________________________________________
+dense_4 (Dense)              (None, 10)                10010     
+_________________________________________________________________
+activation_9 (Activation)    (None, 10)                0         
+=================================================================
+Total params: 10,591,138
+Trainable params: 10,591,138
+Non-trainable params: 0
+_________________________________________________________________
+WARNING:tensorflow:From /usr/lib/python3.7/site-packages/tensorflow/python/ops/math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+Train on 50000 samples, validate on 10000 samples
+Epoch 1/20
+2019-05-19 15:42:27.901504: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX
+2019-05-19 15:42:27.921912: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3401830000 Hz
+2019-05-19 15:42:27.922245: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x55f3cf7a4120 executing computations on platform Host. Devices:
+2019-05-19 15:42:27.922262: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-05-19 15:42:27.972223: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:998] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2019-05-19 15:42:27.972562: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x55f3cf462890 executing computations on platform CUDA. Devices:
+2019-05-19 15:42:27.972579: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): GeForce GTX 780, Compute Capability 3.5
+2019-05-19 15:42:27.972672: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: GeForce GTX 780 major: 3 minor: 5 memoryClockRate(GHz): 0.954
+pciBusID: 0000:01:00.0
+totalMemory: 2.95GiB freeMemory: 1.89GiB
+2019-05-19 15:42:27.972686: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-05-19 15:42:28.197327: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-05-19 15:42:28.197363: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-05-19 15:42:28.197371: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+2019-05-19 15:42:28.197470: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 1661 MB memory) -> physical GPU (device: 0, name: GeForce GTX 780, pci bus id: 0000:01:00.0, compute capability: 3.5)
+2019-05-19 15:42:28.813067: I tensorflow/stream_executor/dso_loader.cc:152] successfully opened CUDA library libcublas.so.10 locally
+50000/50000 [==============================] - 16s 324us/step - loss: 1.8633 - acc: 0.2914 - val_loss: 1.5935 - val_acc: 0.4052
+Epoch 2/20
+50000/50000 [==============================] - 15s 293us/step - loss: 1.3595 - acc: 0.5078 - val_loss: 1.2996 - val_acc: 0.5267
+Epoch 3/20
+50000/50000 [==============================] - 15s 294us/step - loss: 1.1295 - acc: 0.5975 - val_loss: 1.0804 - val_acc: 0.6139
+Epoch 4/20
+50000/50000 [==============================] - 15s 300us/step - loss: 0.9473 - acc: 0.6642 - val_loss: 0.9704 - val_acc: 0.6624
+Epoch 5/20
+50000/50000 [==============================] - 15s 300us/step - loss: 0.8307 - acc: 0.7069 - val_loss: 0.9566 - val_acc: 0.6702
+Epoch 6/20
+50000/50000 [==============================] - 15s 304us/step - loss: 0.7244 - acc: 0.7444 - val_loss: 0.8977 - val_acc: 0.6923
+Epoch 7/20
+50000/50000 [==============================] - 15s 303us/step - loss: 0.6413 - acc: 0.7763 - val_loss: 0.9242 - val_acc: 0.6943
+Epoch 8/20
+50000/50000 [==============================] - 15s 292us/step - loss: 0.5373 - acc: 0.8123 - val_loss: 0.9855 - val_acc: 0.6975
+Epoch 9/20
+50000/50000 [==============================] - 15s 294us/step - loss: 0.4528 - acc: 0.8400 - val_loss: 0.9512 - val_acc: 0.7018
+Epoch 10/20
+50000/50000 [==============================] - 15s 296us/step - loss: 0.3648 - acc: 0.8702 - val_loss: 1.0869 - val_acc: 0.6950
+Epoch 11/20
+50000/50000 [==============================] - 15s 295us/step - loss: 0.2980 - acc: 0.8949 - val_loss: 1.2933 - val_acc: 0.6820
+Epoch 12/20
+50000/50000 [==============================] - 15s 294us/step - loss: 0.2377 - acc: 0.9160 - val_loss: 1.3189 - val_acc: 0.6998
+Epoch 13/20
+50000/50000 [==============================] - 15s 295us/step - loss: 0.1893 - acc: 0.9338 - val_loss: 1.4474 - val_acc: 0.6873
+Epoch 14/20
+50000/50000 [==============================] - 15s 298us/step - loss: 0.1707 - acc: 0.9406 - val_loss: 1.5038 - val_acc: 0.6922
+Epoch 15/20
+50000/50000 [==============================] - 15s 305us/step - loss: 0.1442 - acc: 0.9505 - val_loss: 1.4882 - val_acc: 0.6999
+Epoch 16/20
+50000/50000 [==============================] - 15s 299us/step - loss: 0.1266 - acc: 0.9568 - val_loss: 1.5396 - val_acc: 0.6903
+Epoch 17/20
+50000/50000 [==============================] - 15s 306us/step - loss: 0.1155 - acc: 0.9604 - val_loss: 1.6064 - val_acc: 0.6981
+Epoch 18/20
+50000/50000 [==============================] - 15s 304us/step - loss: 0.1081 - acc: 0.9641 - val_loss: 1.8127 - val_acc: 0.6877
+Epoch 19/20
+50000/50000 [==============================] - 15s 304us/step - loss: 0.1031 - acc: 0.9655 - val_loss: 1.6688 - val_acc: 0.7035
+Epoch 20/20
+50000/50000 [==============================] - 15s 307us/step - loss: 0.0853 - acc: 0.9722 - val_loss: 1.7367 - val_acc: 0.6977
+10000/10000 [==============================] - 1s 124us/step
+1.7367354749679564 0.6977
